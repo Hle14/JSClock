@@ -1,15 +1,17 @@
 
-var hourly_wage = earned = 0;
+var hourly_wage = second_wage = earned = 0;
 //var form = document.getElementById("wage_form");
 
 var setHourlyWage = function(){
 	//NOTE: this won't check to make sure the wage is actually a number
 	hourly_wage = document.getElementById("wage_input").value;
 	document.getElementById("hourly_wage").innerHTML = hourly_wage;
+	second_wage = hourly_wage*1.00 / 3600.0;
+	document.getElementById("second_wage").innerHTML = second_wage;
 };
 
 var addToWage = function(){
-	earned += parseFloat(hourly_wage);
+	earned += parseFloat(second_wage);
 	document.getElementById("earned").innerHTML = earned;
 }
 /*
@@ -49,19 +51,19 @@ var updateClockAndWage = function(){
 var wage_counter,clock_counter;
 var clearTimers = function(){
 	clearInterval(wage_counter);
-	clearInterval(clock_counter);
+	//clearInterval(clock_counter);
 };
 var startTimers = function(){
 	clearTimers();
-	wage_counter = setInterval(addToWage,500);
-	clock_counter = setInterval(updateClockAndWage,1000);
+	wage_counter = setInterval(addToWage,1000);
 };
 var reset = function(){
 	clearTimers();
-	hourly_wage = earned = 0;
+	hourly_wage = earned = second_wage = 0;
 	document.getElementById("wage_input").value = 0;
 	document.getElementById("earned").innerHTML = 0;
 	document.getElementById('hourly_wage').innerHTML = 0;
+	document.getElementById('second_wage').innerHTML = 0;
 };
 
 window.onload = function(){
@@ -78,4 +80,6 @@ window.onload = function(){
 
 	var clearButton = document.getElementById("clear_button");
 	clearButton.addEventListener("click",reset,false);
+
+	clock_counter = setInterval(updateClockAndWage,1000);
 };
