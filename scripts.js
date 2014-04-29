@@ -1,6 +1,6 @@
 
 var hourly_wage = second_wage = earned = 0;
-//var form = document.getElementById("wage_form");
+
 
 var setHourlyWage = function(){
 	//NOTE: this won't check to make sure the wage is actually a number
@@ -10,15 +10,30 @@ var setHourlyWage = function(){
 	document.getElementById("second_wage").innerHTML = second_wage;
 };
 
+//increments total amount earned for each call(called every time step)
 var addToEarned = function(){
 	earned += parseFloat(second_wage);
 	document.getElementById("earned").innerHTML = earned.toFixed(2);
 };
 /*
+//calculates total amount earned from entered start time
 var setStartTime = function(){
-
+	//calculate total time since entered start time
+	//set total to second_wage*total_time
+	//clear timers and then start timers to continue adding to earnings
 };
 */
+
+/*add time period functionality
+e.g. start time block, label time block,
+	end time block, list total earned during time block
+	e.g. e.g.
+		BLOCK-TITLE			START-END		EARNED
+		TPS reports			10:24-10:41		$X
+		Use the restroom	10:41-12:00		$Y
+*/
+
+
 
 var updateClockAndWage = function(){
 	var time = new Date();
@@ -39,11 +54,6 @@ var updateClockAndWage = function(){
 
 	var time_string = hour + ":" + minute + ":" + second;
 
-	//calculate how much has been earned
-	//var earned = hourly_wage*(hour + (minute*60 + second)/3600);
-	//var earned_string = "$" + earned.toFixed(2);
-	//update clock display
-	//document.getElementById("clock").firstChild.nodeValue = time_string;
 	document.getElementById("clock").innerHTML = time_string;
 };
 
@@ -51,13 +61,12 @@ var updateClockAndWage = function(){
 var wage_counter,clock_counter;
 var clearTimers = function(){
 	clearInterval(wage_counter);
-	//clearInterval(clock_counter);
 };
 var startTimers = function(){
 	clearTimers();
-	wage_counter = setInterval(addToEarned,1000);
+	wage_counter = setInterval(function(){addToEarned()},1000);
 };
-var reset = function(){
+var reset = function(){ //resets all global variables and displayed elements and stops timers
 	clearTimers();
 	hourly_wage = earned = second_wage = 0;
 	document.getElementById("wage_input").value = 0;
@@ -81,5 +90,7 @@ window.onload = function(){
 	var clearButton = document.getElementById("clear_button");
 	clearButton.addEventListener("click",reset,false);
 
-	clock_counter = setInterval(updateClockAndWage,1000);
+	clock_counter = setInterval(function(){updateClockAndWage()},1000);
 };
+
+/**NOTE: according to */
