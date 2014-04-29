@@ -4,15 +4,16 @@
 <body>
 
 <form id="wage_form">
-	<input type="text" id="wage_input">
+	$<input type="text" id="wage_input">
 	<input type="button" id="set_wage" value="Set Wage">
 </form>
-
-<br><br><br>
-
-<h1 id="clock">yo</h1>
-<h2>hourly wage: $<div id="hourly_wage">0.00</div></h2>
-<h2 id="earned">$20.00</h2>
+<input type="button" id="start_button" value="Start">
+<input type="button" id="stop_button" value="Stop">
+<input type="button" id="clear_button" value="Reset">
+<br>
+<p>time: <span id="clock"></span>
+<p>hourly wage: $<span id="hourly_wage">0</span>
+<p>earned: $<span id="earned">0</span>
 
 </body>
 </html>
