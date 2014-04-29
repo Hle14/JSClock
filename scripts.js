@@ -4,16 +4,16 @@ var hourly_wage = second_wage = earned = 0;
 
 var setHourlyWage = function(){
 	//NOTE: this won't check to make sure the wage is actually a number
-	hourly_wage = document.getElementById("wage_input").value;
-	document.getElementById("hourly_wage").innerHTML = hourly_wage;
-	second_wage = hourly_wage*1.00 / 3600.0;
+	hourly_wage = parseFloat(document.getElementById("wage_input").value);
+	document.getElementById("hourly_wage").innerHTML = hourly_wage.toFixed(2);
+	second_wage = hourly_wage/3600.0;
 	document.getElementById("second_wage").innerHTML = second_wage;
 };
 
-var addToWage = function(){
+var addToEarned = function(){
 	earned += parseFloat(second_wage);
-	document.getElementById("earned").innerHTML = earned;
-}
+	document.getElementById("earned").innerHTML = earned.toFixed(2);
+};
 /*
 var setStartTime = function(){
 
@@ -40,8 +40,8 @@ var updateClockAndWage = function(){
 	var time_string = hour + ":" + minute + ":" + second;
 
 	//calculate how much has been earned
-	var earned = hourly_wage*(hour + (minute*60 + second)/3600);
-	var earned_string = "$" + earned.toFixed(2);
+	//var earned = hourly_wage*(hour + (minute*60 + second)/3600);
+	//var earned_string = "$" + earned.toFixed(2);
 	//update clock display
 	//document.getElementById("clock").firstChild.nodeValue = time_string;
 	document.getElementById("clock").innerHTML = time_string;
@@ -55,7 +55,7 @@ var clearTimers = function(){
 };
 var startTimers = function(){
 	clearTimers();
-	wage_counter = setInterval(addToWage,1000);
+	wage_counter = setInterval(addToEarned,1000);
 };
 var reset = function(){
 	clearTimers();
